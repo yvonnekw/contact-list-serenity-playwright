@@ -1,0 +1,55 @@
+{
+  "name": "serenity-js-cucumber-playwright-contact-list-app",
+  "version": "3.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "serenity-bdd update",
+    "clean": "rimraf target",
+    "test": "failsafe clean test:execute test:report",
+    "test:execute": "cucumber-js",
+    "test:report": "serenity-bdd run --features ./features",
+    "start": "mkdirp target/site/serenity && npx http-server -p 8080 target/site/serenity -s -o",
+    "lint": "eslint --ext ts --config .eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "keywords": [
+    "serenity-js",
+    "bdd",
+    "cucumber",
+    "testing",
+    "webdriverio"
+  ],
+  "author": "Yvonne Kwarteng",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": "^16.13 || ^18.12 || ^20"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^9.5.0",
+    "@serenity-js/assertions": "^3.10.1",
+    "@serenity-js/console-reporter": "^3.10.1",
+    "@serenity-js/core": "^3.10.1",
+    "@serenity-js/cucumber": "^3.10.1",
+    "@serenity-js/playwright": "^3.10.1",
+    "@serenity-js/rest": "^3.10.1",
+    "@serenity-js/serenity-bdd": "^3.10.1",
+    "@serenity-js/web": "^3.10.1",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
+    "axios": "^1.5.0",
+    "eslint": "^8.48.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unicorn": "^48.0.1",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "http-server": "^14.1.1",
+    "is-ci": "^3.0.1",
+    "mkdirp": "^3.0.1",
+    "npm-failsafe": "^1.0.0",
+    "playwright": "^1.37.1",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
