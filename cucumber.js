@@ -5,12 +5,12 @@
  * @type {{default: string}}
  */
 module.exports = {
-    default: [
-        `--publish-quiet`,
-        `--require-module 'ts-node/register'`,      // use TypeScript in-memory transpiler, ts-node
-        `--format "@serenity-js/cucumber"`,         // use Serenity/JS Cucumber adapter - https://serenity-js.org/modules/cucumber/
-        `--require "./features/**/*.steps.ts"`,     // load step definition libraries
-        `--require './features/**/*.config.ts'`,     // load configuration files, such as features/support/
-       `--world-parameters={"baseApiUrl":"https://thinking-tester-contact-list.herokuapp.com"}`
-    ].join(' ')
+  default: [
+    `--publish-quiet`,
+    `--require-module 'ts-node/register'`, // use TypeScript in-memory transpiler, ts-node
+    `--format "@serenity-js/cucumber"`, // use Serenity/JS Cucumber adapter - https://serenity-js.org/modules/cucumber/
+    `--require "./features/**/*.steps.ts"`, // load step definition libraries
+    `--require './features/**/*.config.ts'`, // load configuration files, such as features/support/
+    `--world-parameters={"baseApiUrl":"https://thinking-tester-contact-list.herokuapp.com"}`,
+  ].join(" "),
 };
