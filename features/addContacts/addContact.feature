@@ -4,9 +4,9 @@ Feature: add contact using the api
     Sam can create a contact using the api
 
     Background:
-        Given Sam creates a contact
-    @my
+        Given Sam starts with the "Contact List App" application
+
     Scenario: Sam can create a contact using the api endpoint
-        And Sam starts with the "Contact List App" application
+        And he creates a contact
         When he logs in using a "gorgeous65@msn.com" and "Test1234"
         Then he should see the current page title "Contact List App"

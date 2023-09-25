@@ -6,8 +6,8 @@ import { Ensure, equals } from '@serenity-js/assertions'
 
 
 const bodyParameters = {
-    'firstName': 'John4',
-    'lastName': 'Doe4',
+    'firstName': 'John5',
+    'lastName': 'Doe5',
     'birthdate': '1970-01-01',
     'email': 'gorgeous4@msn.com',
     'phone': '8005555555',
@@ -24,20 +24,20 @@ const config = {
     proxy: 'https://localhost:8080'
 };
 
-Given('{actor} creates a contact', async (actor) => {
+Given('{pronoun} creates a contact', async (pronoun) => {
     try {
-        const response = await (Send.a(PostRequest.to('/contacts').with({
-            'firstName': 'John4',
-            'lastName': 'Doe4',
-            'birthdate': '1970-01-01',
-            'email': 'gorgeous4@msn.com',
-            'phone': '8005555555',
-            'street1': '1 Main St.',
-            'street2': 'Apartment A',
-            'city': 'Anytown',
-            'stateProvince': 'KS',
-            'postalCode': '12345',
-            'country': 'USA'
+        const response = await pronoun.attemptsTo((Send.a(PostRequest.to('/contacts').with({
+            "firstName": "John5",
+            "lastName": "Doe5",
+            "birthdate": "1970-01-01",
+            "email": "jdoe@fake.com",
+            "phone": "8005555777",
+            "street1": "1 Main St.",
+            "street2": "Apartment A",
+            "city": "Anytown",
+            "stateProvince": "KS",
+            "postalCode": "12345",
+            "country": "USA"
 
         }).using({
             headers: {
@@ -48,8 +48,12 @@ Given('{actor} creates a contact', async (actor) => {
             },
         })
         )
-        );
+        ));
         Ensure.that(LastResponse.status(), equals(201));
+        let results =
+            Ensure.that(LastResponse.body.name, equals('John4'))
+        //let results = JSON.stringify(response)
+        console.log('response ' + results)
     } catch (error) {
         console.error('Error:', error);
         throw error;
