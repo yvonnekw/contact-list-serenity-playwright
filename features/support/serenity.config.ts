@@ -1,8 +1,8 @@
-import { AfterAll, Before, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber';
+import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { ArtifactArchiver, configure, Duration, engage } from '@serenity-js/core';
+import { ArtifactArchiver, configure, Duration } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { Photographer, TakePhotosOfInteractions /* TakePhotosOfFailures */ } from '@serenity-js/web';
+import { Photographer, TakePhotosOfFailures, TakePhotosOfInteractions /* TakePhotosOfFailures */ } from '@serenity-js/web';
 import * as playwright from 'playwright';
 
 import { Actors } from '../../test';
@@ -21,6 +21,10 @@ const timeouts = {
 }
 
 let browser: playwright.Browser;
+let proxy: any;
+//let apiUrl: any;
+// Define the API base URL
+//const apiBaseUrl = 'https://thinking-tester-contact-list/contact';
 
 // Configure default Cucumber step timeout
 setDefaultTimeout(timeouts.cucumber.step.inMilliseconds());
@@ -31,34 +35,30 @@ BeforeAll(async () => {
     browser = await playwright.chromium.launch({
         headless: true,
     });
+    //apiUrl ='fasdfasdf',
 
     // Configure Serenity/JS
     configure({
 
         // Configure Serenity/JS actors to use Playwright browser
         actors: new Actors(browser, {
-            baseURL: 'https://thinking-tester-contact-list.herokuapp.com/',
-            // baseApiUrl: 'engage(new Actors(this.parameters.baseApiUrl',
+            baseURL: 'https://thinking-tester-contact-list.herokuapp.com',
             defaultNavigationTimeout: timeouts.playwright.defaultNavigationTimeout.inMilliseconds(),
-            defaultTimeout: timeouts.playwright.defaultTimeout.inMilliseconds(),
+            defaultTimeout: timeouts.playwright.defaultTimeout.inMilliseconds()
         }),
 
+   
         // Configure Serenity/JS reporting services
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
             new SerenityBDDReporter(),
             ConsoleReporter.forDarkTerminals(),
             Photographer.whoWill(TakePhotosOfInteractions),         // capture screenshots of all the interactions; slower but more comprehensive
-            // Photographer.whoWill(TakePhotosOfFailures),             // capture screenshots of failed interactions; much faster
+            Photographer.whoWill(TakePhotosOfFailures),             // capture screenshots of failed interactions; much faster
         ],
 
         cueTimeout: timeouts.serenity.cueTimeout,
     });
-    //engage(new Actors(this.parameters.baseApiUrl));
-});
-
-Before(function () {
-    engage(new Actors(this.parameters.baseApiUrl, this.parameters.baseURL));
 });
 
 AfterAll(async () => {
